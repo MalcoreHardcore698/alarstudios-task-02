@@ -1,0 +1,33 @@
+{
+    "name": "alarstudios-task-02",
+    "version": "1.0.0",
+    "main": "src/index.js",
+    "scripts": {
+        "serve": "parcel ./src/index.html -p 3000 --open",
+        "build": "parcel build ./src/index.html --no-source-maps"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MalcoreHardcore698/alarstudios-task-02.git"
+    },
+    "keywords": [
+        "javascript",
+        "js"
+    ],
+    "author": "Malcore <dan8271@yandex.ru>",
+    "license": "ISC",
+    "dependencies": {
+        "backbone": "^1.4.0",
+        "backbone.localstorage": "^2.0.2",
+        "jqeury": "0.0.1-security",
+        "jquery": "^3.5.1",
+        "lodash": "^4.17.20",
+        "normalize.css": "^8.0.0",
+        "underscore": "^1.11.0"
+    },
+    "devDependencies": {
+        "coffeescript": "^2.5.1",
+        "less": "^3.12.2",
+        "parcel-bundler": "^1.12.4"
+    }
+}
