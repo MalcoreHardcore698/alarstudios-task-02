@@ -3,16 +3,15 @@ import _ from 'underscore'
 import $ from 'jquery'
 
 export default Backbone.View.extend(
-  tagName:  "li"
+  tagName: 'tr'
 
-  template: _.template $('#trace-template').html()
+  template: _.template document.getElementById('trace-template').innerHTML
 
   events: {
-    "click .toggle"   : "toggleDone"
-    "dblclick .view"  : "edit"
-    "click a.destroy" : "clear"
-    "keypress .edit"  : "updateOnEnter"
-    "blur .edit"      : "close"
+    'click .toggle': 'toggleDone'
+    'click button.edit': 'edit'
+    'click button.apply': 'apply'
+    'click button.delete': 'delete'
   }
 
   initialize: -> 
@@ -22,28 +21,30 @@ export default Backbone.View.extend(
   render: ->
     @$el.html @template @model.toJSON()
     @$el.toggleClass 'done', @model.get 'done'
-    @input = @$('.edit')
+    @name = @$ '.form-control.name'
+    @phone = @$ '.form-control.phone'
     return @
 
   toggleDone: ->
     @model.toggle()
 
-  edit: -> 
-    @$el.addClass "editing"
-    @input.focus()
+  edit: ->
+    @model.edit()
 
-  close: ->
-    value = @input.val()
-    if not value
-      @clear()
-    else
-      @model.save title: value
-      @$el.removeClass "editing"
+  apply: ->
+    name = @name.val()
+    phone = @phone.val()
 
-  updateOnEnter: (e) ->
-    if e.keyCode is 13
-      @close()
+    unless name
+      @name.addClass 'require'
+    unless phone
+      @phone.addClass 'require'
 
-  clear: ->
-      @model.destroy()
+    if name and phone
+      @model.save name: name
+      @model.save phone: phone
+      @model.edit()
+
+  delete: ->
+    @model.destroy()
 )

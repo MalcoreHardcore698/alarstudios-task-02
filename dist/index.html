@@ -3,59 +3,66 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
         <link href="/main.3627ae54.css" rel="stylesheet">
         <title>User Manager</title>
     <script src="/main.3627ae54.js"></script></head>
     <body>
         <div id="root">
             <header>
-                <h1>Users Manager</h1>
-                <form id="new-user">
-                    <fieldset>
-                        <input id="name" type="text" placeholder="Name">
-                        <input id="phone" type="text" placeholder="Phone">
-                    </fieldset>
-                    <input type="submit" value="New User">
-                </form>
+                <h1 class="title">User Manager</h1>
             </header>
-    
-            <section id="main">
-                <input id="toggle-all" type="checkbox">
-                <label for="toggle-all">Mark all as complete</label>
 
+            <main id="main">
                 <table id="table">
-                    <thead></thead>
+                    <thead>
+                        <tr>
+                            <td class="icon"><input id="toggle-all" type="checkbox"></td>
+                            <td>Name</td>
+                            <td>Phone</td>
+                            <td class="icon"></td>
+                            <td class="icon"></td>
+                        </tr>
+                    </thead>
                     <tbody></tbody>
                 </table>
-            </section>
-    
+            </main>
+
             <footer>
-                <a id="clear-completed">Clear completed</a>
-                <div id="todo-count"></div>
+                <form id="form-user">
+                    <input id="name" type="text" placeholder="Name" autocomplete="off">
+                    <input id="phone" type="number" placeholder="Phone" data-inputmask="'mask': '+9(999)-999-9999'" autocomplete="off">
+                    <button id="new-user" type="button" class="accent icon"><i class="fas fa-plus-circle"></i></button>
+                </form>
             </footer>
         </div>
 
         <!-- Templates -->
         <script type="text/template" id="trace-template">
-            <tr class="view">
-                <th><input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> /></th>
-                <th>
+            <th><input class="toggle" type="checkbox" <%= checked ? 'checked="checked"' : '' %> /></th>
+            <th>
+                <% if (editing) { %>
+                    <input class="form-control name" type="text" value="<%- name %>" />
+                <% } else { %>
                     <p><%- name %></p>
-                    <input class="edit" type="text" value="<%- name %>" />
-                </th>
-                <th>
+                <% } %>
+            </th>
+            <th>
+                <% if (editing) { %>
+                    <input class="form-control phone" type="number" value="<%- phone %>" />
+                <% } else { %>
                     <p><%- phone %></p>
-                    <input class="edit" type="text" value="<%- phone %>" />
-                </th>
-                <th><a class="destroy"></a></th>
-            </tr>
-        </script>
-
-        <script type="text/template" id="stats-template">
-            <% if (done) { %>
-                <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
-            <% } %>
-            <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+                <% } %>
+            </th>
+            
+            <th class="icon">
+                <% if (editing) { %>
+                    <button class="apply"><i class="fas fa-check"></i></button></th>
+                <% } else { %>
+                    <button class="edit"><i class="fas fa-edit"></i></button></th>
+                <% } %>
+            <th class="icon"><button class="delete" <%= editing ? 'disabled="disabled"' : '' %>><i class="fas fa-times"></i></button></th>
         </script>
 
         <!-- Scripts -->

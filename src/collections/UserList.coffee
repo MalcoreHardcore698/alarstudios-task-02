@@ -4,7 +4,14 @@ import 'backbone.localstorage'
 
 UserList = Backbone.Collection.extend(
   model: User
-  localStorage: new Backbone.LocalStorage("users-backbone")
+
+  sync: (method, model) ->
+    # fetching data...
+    # add data to model
+    model.add new User() for i in [0, 1, 2, 3, 4]
+
+  # IS NOT WORK becouse define sync
+  localStorage: new Backbone.LocalStorage('users-backbone')
 
   done: ->
     @where checked: true

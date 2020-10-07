@@ -7,7 +7,11 @@ export default Backbone.Model.extend(
     phone: '891234567891'
     order: UserList.nextOrder()
     checked: false
+    editing: false
+
+  edit: ->
+    @save editing: not @get 'editing'
 
   toggle: ->
-    @save done: not @get 'checked'
+    @save checked: not @get 'checked'
 )

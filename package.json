@@ -19,6 +19,7 @@
     "dependencies": {
         "backbone": "^1.4.0",
         "backbone.localstorage": "^2.0.2",
+        "inputmask": "^5.0.5",
         "jqeury": "0.0.1-security",
         "jquery": "^3.5.1",
         "lodash": "^4.17.20",
